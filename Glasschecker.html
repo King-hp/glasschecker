@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CoverX - Glass Compatibility Checker</title>
+
+<style>
+
+/* ================================
+   RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #222;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+header {
+    background: #111827;
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 30px;
+}
+
+header p {
+    margin-top: 7px;
+    color: #cbd5e1;
+}
+
+
+/* ================================
+   CONTAINER
+================================ */
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+
+/* ================================
+   SEARCH BOX
+================================ */
+
+.search-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.search-box input,
+.search-box select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    background: white;
+}
+
+.search-box input:focus,
+.search-box select:focus {
+    border-color: #111827;
+}
+
+
+/* ================================
+   GLASS TYPE SECTIONS
+================================ */
+
+.glass-sections {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.glass-section {
+    background: white;
+    padding: 20px 12px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.glass-section:hover {
+    transform: translateY(-5px);
+}
+
+.glass-section .icon {
+    font-size: 30px;
+}
+
+.glass-section h3 {
+    margin: 10px 0 5px;
+    font-size: 17px;
+}
+
+.glass-section p {
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* ================================
+   REQUEST BOX
+================================ */
+
+.request-box {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border-left: 5px solid #25D366;
+}
+
+.request-box h2 {
+    margin-bottom: 8px;
+}
+
+.request-box p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.request-box input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.whatsapp-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #25D366;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+    background: #1ebe5d;
+    transform: translateY(-2px);
+}
+
+
+/* ================================
+   RESULT COUNT
+================================ */
+
+.result-count {
+    margin: 25px 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* ================================
+   RESULTS
+================================ */
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+
+/* ================================
+   CARD
+================================ */
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.brand {
+    display: inline-block;
+    background: #111827;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+}
+
+.card p {
+    color: #666;
+    margin: 5px 0;
+}
+
+.glass-type {
+    display: inline-block;
+    margin: 8px 0;
+    padding: 6px 10px;
+    background: #eef2ff;
+    color: #3730a3;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.compatible {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f0fdf4;
+    border-radius: 8px;
+    color: #166534;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   NO RESULT
+================================ */
+
+.no-result {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 15px;
+    color: #777;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .glass-sections {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .glass-section {
+        padding: 15px 8px;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .container {
+        padding: 0 10px;
+    }
+
+    .glass-section h3 {
+        font-size: 15px;
+    }
+
+    .glass-section p {
+        font-size: 11px;
+    }
+
+}
+
+
+/* ================================
+   CLEAR BUTTON
+================================ */
+
+.clear-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #111827;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 3px;
+}
+
+.clear-btn:hover {
+    background: #1f2937;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     HEADER
+================================ -->
+
+<header>
+
+    <h1>📱 CoverX</h1>
+
+    <p>
+        Glass Compatibility Checker
+    </p>
+
+</header>
+
+
+
+<div class="container">
+
+
+<!-- ================================
+     SEARCH BOX
+================================ -->
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search mobile model... e.g. Vivo Y20"
+    >
+
+
+    <select id="brandFilter">
+
+        <option value="all">
+            All Brands
+        </option>
+
+        <option value="Apple">
+            Apple
+        </option>
+
+        <option value="Samsung">
+            Samsung
+        </option>
+
+        <option value="Vivo">
+            Vivo
+        </option>
+
+        <option value="Oppo">
+            Oppo
+        </option>
+
+        <option value="Realme">
+            Realme
+        </option>
+
+        <option value="Redmi">
+            Redmi
+        </option>
+
+        <option value="OnePlus">
+            OnePlus
+        </option>
+
+        <option value="Motorola">
+            Motorola
+        </option>
+
+        <option value="POCO">
+            POCO
+        </option>
+
+        <option value="iQOO">
+            iQOO
+        </option>
+
+        <option value="Tecno">
+            Tecno
+        </option>
+
+        <option value="Infinix">
+            Infinix
+        </option>
+
+        <option value="Huawei">
+            Huawei
+        </option>
+
+    </select>
+
+
+    <!-- GLASS TYPE FILTER -->
+
+    <select id="glassTypeFilter">
+
+        <option value="all">
+            All Glass Types
+        </option>
+
+        <option value="Privacy">
+            🛡️ Privacy Glass
+        </option>
+
+        <option value="Matt">
+            🌫️ Matt Glass
+        </option>
+
+        <option value="D+">
+            💎 D+ Glass
+        </option>
+
+        <option value="0.3mm">
+            📏 0.3mm Glass
+        </option>
+
+    </select>
+
+
+    <button
+        class="clear-btn"
+        onclick="clearSearch()"
+    >
+        🔄 Clear Search
+    </button>
+
+</div>
+
+
+
+<!-- ================================
+     GLASS SECTIONS
+================================ -->
+
+<div class="glass-sections">
+
+
+    <div
+        class="glass-section"
+        onclick="selectGlassType('Privacy')"
+    >
+
+        <div class="icon">
+            🛡️
+        </div>
+
+        <h3>
+            Privacy Glass
+        </h3>
+
+        <p>
+            Side privacy protection
+        </p>
+
+    </div>
+
+
+
+    <div
+        class="glass-section"
+        onclick="selectGlassType('Matt')"
+    >
+
+        <div class="icon">
+            🌫️
+        </div>
+
+        <h3>
+            Matt Glass
+        </h3>
+
+        <p>
+            Anti-glare finish
+        </p>
+
+    </div>
+
+
+
+    <div
+        class="glass-section"
+        onclick="selectGlassType('D+')"
+    >
+
+        <div class="icon">
+            💎
+        </div>
+
+        <h3>
+            D+ Glass
+        </h3>
+
+        <p>
+            Premium protection
+        </p>
+
+    </div>
+
+
+
+    <div
+        class="glass-section"
+        onclick="selectGlassType('0.3mm')"
+    >
+
+        <div class="icon">
+            📏
+        </div>
+
+        <h3>
+            0.3mm Glass
+        </h3>
+
+        <p>
+            Ultra-thin protection
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================
+     WHATSAPP REQUEST
+================================ -->
+
+<div class="request-box">
+
+    <h2>
+        📲 Model nahi mila?
+    </h2>
+
+    <p>
+        Apne mobile ka model enter karein.
+        Hum WhatsApp par glass availability check karenge.
+    </p>
+
+    <input
+        type="text"
+        id="requestModel"
+        placeholder="Example: Vivo V40 5G"
+    >
+
+    <button
+        class="whatsapp-btn"
+        onclick="sendWhatsAppRequest()"
+    >
+        💬 Request on WhatsApp
+    </button>
+
+</div>
+
+
+
+<!-- ================================
+     RESULT COUNT
+================================ -->
+
+<div
+    class="result-count"
+    id="resultCount"
+>
+    Search a mobile model
+</div>
+
+
+
+<!-- ================================
+     RESULTS
+================================ -->
+
+<div
+    class="results"
+    id="results"
+></div>
+
+
+</div>
+
+
+
+<!-- ================================
+     FOOTER
+================================ -->
+
+<footer>
+
+    © 2026 CoverX | Glass Compatibility Tool
+
+</footer>
+
+
+
+<script>
+
+
+/*
+==================================================
+COVERX GLASS DATABASE
+==================================================
+*/
+
+const glassDatabase = [
+
+
+/* ==================================================
+   1. VIVO Y20
+================================================== */
+
+{
+    glassModel: "Vivo Y20",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Realme 5",
+        "Realme 5i",
+        "Realme 5S",
+        "Realme 6i Global",
+        "Realme 7i Global",
+        "Realme 9i 5G",
+        "Realme 10 5G",
+        "Realme 10S",
+        "Realme 10T",
+        "Realme C3",
+        "Realme C3i",
+        "Realme C11",
+        "Realme C11 2021",
+        "Realme C12",
+        "Realme C15",
+        "Realme C20",
+        "Realme C20A",
+        "Realme C21",
+        "Realme C21Y",
+        "Realme C25",
+        "Realme C25S",
+        "Realme C25Y",
+        "Realme C30",
+        "Realme C30S",
+        "Realme C31",
+        "Realme C33",
+        "Realme C35",
+        "Realme Q2i",
+        "Realme Q5i",
+        "Realme V3",
+        "Realme V11 5G",
+        "Realme V20",
+        "Realme V23 5G",
+
+        "Realme Narzo 10",
+        "Realme Narzo 10A",
+        "Realme Narzo 20",
+        "Realme Narzo 20A",
+        "Realme Narzo 30",
+        "Realme Narzo 50 5G",
+        "Realme Narzo 50A",
+        "Realme Narzo 50A Prime",
+        "Realme Narzo 50",
+        "Realme Narzo 50i Prime",
+
+        "Oppo A1X",
+        "Oppo A2X",
+        "Oppo A5 2020",
+        "Oppo A9 2020",
+        "Oppo A11",
+        "Oppo A11X",
+        "Oppo A15",
+        "Oppo A15S",
+        "Oppo A16",
+        "Oppo A16E",
+        "Oppo A16K",
+        "Oppo A16S",
+        "Oppo A17",
+        "Oppo A17K",
+        "Oppo A18",
+        "Oppo A31",
+        "Oppo A35",
+        "Oppo A38",
+        "Oppo A53S 5G",
+        "Oppo A54S",
+        "Oppo A55 5G",
+        "Oppo A55S",
+        "Oppo A56",
+        "Oppo A56S",
+        "Oppo A57",
+        "Oppo A57E",
+        "Oppo A57S",
+        "Oppo A58 5G",
+        "Oppo A58X",
+        "Oppo A59 5G",
+        "Oppo A77",
+        "Oppo A77S",
+        "Oppo A78 5G",
+        "Oppo A97",
+        "Oppo K10 5G",
+
+        "Vivo Y01",
+        "Vivo Y02",
+        "Vivo Y02A",
+        "Vivo Y02S",
+        "Vivo Y02T",
+        "Vivo Y03",
+        "Vivo Y03T",
+        "Vivo Y3S 2021",
+        "Vivo Y11 2023",
+        "Vivo Y11S",
+        "Vivo Y12A",
+        "Vivo Y12S",
+        "Vivo Y12G",
+        "Vivo Y15A",
+        "Vivo Y15S",
+        "Vivo Y16",
+        "Vivo Y17S",
+        "Vivo Y18",
+        "Vivo Y18E",
+        "Vivo Y18I",
+        "Vivo Y18T",
+        "Vivo Y20",
+        "Vivo Y20A",
+        "Vivo Y20G",
+        "Vivo Y20I",
+        "Vivo Y20T",
+        "Vivo Y21",
+        "Vivo Y21A",
+        "Vivo Y21E",
+        "Vivo Y21G",
+        "Vivo Y21S",
+        "Vivo Y21T",
+        "Vivo Y22",
+        "Vivo Y22S",
+        "Vivo Y28 5G",
+        "Vivo Y28E",
+        "Vivo Y28S",
+        "Vivo Y30 5G",
+        "Vivo Y31 2021",
+        "Vivo Y31S",
+        "Vivo Y32",
+        "Vivo Y33",
+        "Vivo Y33E",
+        "Vivo Y33S",
+        "Vivo Y33T",
+        "Vivo Y35",
+        "Vivo Y36C",
+        "Vivo Y36I",
+        "Vivo Y37",
+        "Vivo Y37M",
+        "Vivo Y51 2020",
+        "Vivo Y51A",
+        "Vivo Y52 5G",
+        "Vivo Y52S",
+        "Vivo Y52T",
+        "Vivo Y53S",
+        "Vivo Y54S",
+        "Vivo Y55 5G",
+        "Vivo Y55S",
+        "Vivo Y56",
+        "Vivo Y72 5G",
+        "Vivo Y72T",
+        "Vivo Y73T",
+        "Vivo Y74S",
+        "Vivo Y75 5G",
+        "Vivo Y75S 5G",
+        "Vivo Y76 5G",
+        "Vivo Y76S",
+        "Vivo Y77",
+        "Vivo Y77E",
+        "Vivo Y77E T1",
+        "Vivo T1 5G",
+        "Vivo T1X",
+        "Vivo T2X",
+        "Vivo T3 Lite",
+        "Vivo Y27",
+
+        "iQOO Z3",
+        "iQOO Z5X",
+        "iQOO Z6",
+        "iQOO Z6X",
+        "iQOO Z6 Lite",
+        "iQOO Z7I",
+        "iQOO Z9 Lite",
+        "iQOO U3",
+        "iQOO U5",
+        "iQOO U5X",
+        "iQOO USe"
+    ]
+},
+
+
+
+/* ==================================================
+   2. ONEPLUS NORD CE 3 LITE
+================================================== */
+
+{
+    glassModel: "OnePlus Nord CE 3 Lite",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "OnePlus Nord CE 3 Lite",
+        "OnePlus Nord N30",
+        "OnePlus Nord N30 SE",
+        "OnePlus Nord CE 6 Lite",
+
+        "Oppo F23 5G",
+        "Oppo A98 5G",
+        "Oppo A1",
+        "Oppo K11X",
+        "Oppo A58 4G",
+        "Oppo A79 5G",
+        "Oppo A2",
+        "Oppo A5",
+        "Oppo A3 Pro India",
+        "Oppo A3X",
+        "Oppo K12X",
+        "Oppo A80",
+        "Oppo A3 4G",
+        "Oppo A3 5G",
+        "Oppo Y19S",
+        "Oppo A5X",
+        "Oppo A5i",
+        "Oppo A5 Pro",
+
+        "Vivo Y39",
+        "Vivo Y59",
+        "Vivo Y200T",
+        "Vivo Y37 Pro",
+        "Vivo Y200i",
+        "Vivo Y58",
+        "Vivo Y28 4G",
+        "Vivo Y29",
+        "Vivo Y200+",
+        "Vivo Y300i",
+        "Vivo T4X",
+        "Vivo Y300T",
+        "Vivo T3X 5G",
+        "Vivo Y38",
+        "Vivo Y58",
+        "Vivo Y19S Pro",
+        "Vivo Y21D",
+        "Vivo Y31 5G",
+        "Vivo Y31 Pro 5G",
+
+        "Realme C55",
+        "Realme C67 4G",
+        "Realme C67 5G",
+        "Realme 11X 5G",
+        "Realme 11 5G",
+        "Realme 12 5G",
+        "Realme V50",
+        "Realme V50S",
+        "Realme 12X 5G",
+        "Realme C63 5G",
+        "Realme V60",
+        "Realme V60S",
+        "Realme 12 Lite",
+        "Realme C65 4G",
+        "Realme C65 5G",
+        "Realme 13 5G",
+        "Realme V60 Pro",
+        "Realme Narzo 70X",
+        "Realme Narzo N65",
+        "Realme C75",
+        "Realme 14X",
+        "Realme C75X",
+        "Realme P3X",
+        "Realme Narzo 80X",
+        "Realme C71",
+        "Realme C73",
+        "Realme K13X",
+        "Realme P4X",
+        "Realme P3 Lite",
+        "Realme P3 Lite 4G",
+        "Realme P3 Lite 5G",
+
+        "Realme Narzo 60X",
+        "Realme Narzo N55",
+        "Realme Narzo 80 Lite 5G",
+
+        "iQOO Z9X",
+        "iQOO Z10X"
+    ]
+},
+
+
+
+/* ==================================================
+   3. OPPO K12
+================================================== */
+
+{
+    glassModel: "Oppo K12",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "OnePlus 10R",
+        "OnePlus 10T",
+        "OnePlus Ace",
+        "OnePlus Ace Pro",
+
+        "Realme GT 2 Pro",
+        "Realme GT Neo 3",
+        "Realme 12+",
+        "Realme Narzo 70 Pro 5G",
+        "Realme P1",
+        "Realme Narzo 70 5G",
+        "Realme 13 4G",
+        "Realme 14T",
+
+        "Vivo V27e",
+
+        "POCO F5 Pro",
+
+        "iQOO 7 5G",
+        "iQOO 7 India",
+
+        "Oppo K11",
+        "Oppo F27",
+        "Oppo Reno 12F",
+
+        "Redmi Note 13 4G"
+    ]
+},
+
+
+
+/* ==================================================
+   4. OPPO A53
+================================================== */
+
+{
+    glassModel: "Oppo A53",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Oppo A53",
+        "Oppo A32",
+        "Oppo A33",
+        "Oppo A54 4G",
+        "Oppo A55 4G",
+        "Oppo A36",
+        "Oppo A76",
+        "Oppo A96 4G",
+        "Oppo K10",
+        "Oppo A53S",
+        "Oppo K10X",
+        "Oppo Reno 4Z 5G",
+
+        "Realme Q3S",
+        "Realme 7i",
+        "Realme 8i",
+        "Realme 91",
+        "Realme 9 Pro",
+        "Realme Narzo 50",
+        "Realme V25",
+        "Realme C17",
+        "Realme Q5",
+        "Realme 6 Pro",
+        "Realme X3",
+        "Realme X3 SuperZoom",
+        "Realme X50 5G",
+        "Realme 9 5G",
+        "Realme 9 5G Speed",
+
+        "OnePlus Nord CE 2 Lite",
+        "OnePlus Nord N100"
+    ]
+},
+
+
+
+/* ==================================================
+   5. SAMSUNG A80 4G
+================================================== */
+
+{
+    glassModel: "Samsung A80 4G",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Samsung A71 4G",
+        "Samsung A72 4G",
+        "Samsung A72 5G",
+        "Samsung A73",
+        "Samsung A80",
+        "Samsung M51",
+        "Samsung M52 5G",
+        "Samsung M53",
+        "Samsung M54",
+        "Samsung F62",
+        "Samsung M62",
+        "Samsung F54",
+        "Samsung M55",
+        "Samsung C55",
+        "Samsung F55",
+
+        "Redmi Note 9S",
+        "Redmi Note 9 Pro",
+        "Redmi Note 9 Pro Max",
+        "Redmi Note 10 Lite",
+        "Redmi K30",
+        "Redmi K30 5G",
+        "Redmi K30 Pro",
+        "Redmi K40",
+        "Redmi K40 Pro",
+        "Redmi K40 Pro+",
+        "Redmi K40S",
+        "Redmi Note 10 Pro",
+        "Redmi Note 10 Pro Max",
+        "Redmi Note 11 Pro 5G",
+        "Redmi Note 11 Pro+ 5G",
+        "Redmi Note 11E Pro",
+        "Redmi Note 12 Pro 4G",
+        "Redmi 10T Pro 5G",
+        "Redmi 10T Lite",
+        "Redmi 11T",
+        "Redmi 11T Pro",
+        "Redmi 11X",
+        "Redmi 11X Pro",
+
+        "POCO F2 Pro",
+        "POCO F3 GT",
+        "POCO F3",
+        "POCO F4 5G",
+        "POCO X2",
+        "POCO X3",
+        "POCO X3 Pro",
+        "POCO X4 Pro 5G",
+
+        "Realme Q3 5G",
+        "Realme Q31 5G",
+        "Realme 11i",
+        "Realme 11X",
+        "Realme GT Neo 5",
+
+        "Vivo S15",
+        "Vivo Y36",
+        "Vivo Y36 5G",
+        "Vivo Y77T",
+        "Vivo Y100i",
+        "Vivo Y100T",
+        "Vivo Y78",
+        "Vivo Y200",
+        "Vivo Y200E",
+        "Vivo T3 5G",
+        "Vivo Y300",
+
+        "iQOO Neo 6",
+        "iQOO Neo 6 SE",
+        "iQOO Z9 5G",
+
+        "OnePlus Nord CE 3",
+        "OnePlus Nord 3"
+    ]
+},
+
+
+
+/* ==================================================
+   6. OPPO RENO 13 5G
+================================================== */
+
+{
+    glassModel: "Oppo Reno 13 5G",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Oppo Reno 13 5G",
+        "Oppo Reno 14",
+        "Oppo Reno 14F",
+        "Oppo Find X8",
+
+        "Realme 15T",
+        "Realme F31 5G",
+        "Realme F31 Pro 5G",
+
+        "Huawei Pura 70"
+    ]
+},
+
+
+
+/* ==================================================
+   7. SAMSUNG A22 5G
+================================================== */
+
+{
+    glassModel: "Samsung A22 5G",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Samsung A22 5G",
+        "Samsung F14 5G",
+        "Samsung F42 5G",
+        "Samsung M14",
+        "Tecno Pop 3+",
+        "Infinix Hot 20 5G"
+    ]
+},
+
+
+
+/* ==================================================
+   8. SAMSUNG A35 5G
+================================================== */
+
+{
+    glassModel: "Samsung A35 5G",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Samsung A35 5G",
+        "Samsung A55",
+        "Samsung F35",
+        "Samsung M35"
+    ]
+},
+
+
+
+/* ==================================================
+   9. SAMSUNG A16
+================================================== */
+
+{
+    glassModel: "Samsung A16",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Samsung A16",
+        "Samsung A26",
+        "Samsung M16 5G",
+        "Samsung F16",
+        "Samsung A17",
+        "Samsung M36 5G",
+        "Samsung F17"
+    ]
+},
+
+
+
+/* ==================================================
+   10. REDMI NOTE 10 5G
+================================================== */
+
+{
+    glassModel: "Redmi Note 10 5G",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Redmi Note 10 5G",
+        "POCO M3 Pro 5G",
+        "Redmi Note 10T 5G",
+        "Redmi Note 11 SE",
+        "Redmi 10",
+        "Redmi 10 2022",
+        "Redmi 10 Prime",
+        "Redmi Note 11 4G"
+    ]
+},
+
+
+
+/* ==================================================
+   11. REDMI 14C
+================================================== */
+
+{
+    glassModel: "Redmi 14C",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Redmi 14C",
+        "Redmi 14R",
+        "POCO C75 4G",
+        "POCO C75 5G",
+        "Redmi A3 Pro",
+        "Redmi A4 5G",
+        "Redmi A5",
+        "POCO C71"
+    ]
+},
+
+
+
+/* ==================================================
+   12. REDMI 12 4G
+================================================== */
+
+{
+    glassModel: "Redmi 12 4G",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Redmi 12 4G",
+        "Redmi 12 5G",
+        "Redmi Note 12R",
+        "Redmi 13 4G",
+        "Redmi 13 5G",
+        "POCO M6 Pro 5G",
+        "Redmi Note 13R",
+        "POCO M6 4G",
+        "POCO M6 Plus",
+        "Redmi 13X"
+    ]
+},
+
+
+
+/* ==================================================
+   13. MOTO G52
+================================================== */
+
+{
+    glassModel: "Moto G52",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Moto G52",
+        "Moto G71S",
+        "Moto G72",
+        "Moto G82",
+        "Moto G84",
+        "Moto Edge 30"
+    ]
+},
+
+
+
+/* ==================================================
+   14. REALME 7i
+================================================== */
+
+{
+    glassModel: "Realme 7i",
+    brand: "Realme",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Realme 7i",
+        "Realme 8i",
+        "Realme 9i"
+    ]
+},
+
+
+
+/* ==================================================
+   15. MOTO EDGE 50 NEO
+================================================== */
+
+{
+    glassModel: "Moto Edge 50 Neo",
+    brand: "Motorola",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Moto Edge 50 Neo"
+    ]
+},
+
+
+
+/* ==================================================
+   16. MOTO G31
+================================================== */
+
+{
+    glassModel: "Moto G31",
+    brand: "Motorola",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Moto G31",
+        "Moto G41",
+        "Moto G42",
+        "Moto G71 5G"
+    ]
+},
+
+
+
+/* ==================================================
+   17. MOTO G14
+================================================== */
+
+{
+    glassModel: "Moto G14",
+    brand: "Motorola",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Moto G14",
+        "Moto G32",
+        "Moto G54",
+        "Moto G54 Power",
+        "Moto G62",
+        "Moto G62 India",
+        "Moto G64",
+        "Moto G73"
+    ]
+},
+
+
+
+/* ==================================================
+   18. ONEPLUS NORD CE 5
+================================================== */
+
+{
+    glassModel: "OnePlus Nord CE 5",
+    brand: "OnePlus",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "OnePlus Nord CE 5",
+        "OnePlus Nord 5"
+    ]
+},
+
+
+
+/* ==================================================
+   19. MI 15
+================================================== */
+
+{
+    glassModel: "Mi 15",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Mi 15 4G",
+        "Mi 15 5G",
+        "POCO M7"
+    ]
+},
+
+
+
+/* ==================================================
+   20. TECNO POP 9
+================================================== */
+
+{
+    glassModel: "Tecno Pop 9",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Tecno Pop 9",
+        "Tecno Pop 10",
+        "Tecno Spark 30",
+        "Tecno Spark 30C",
+        "Tecno Spark 40",
+        "Tecno Spark 40C",
+        "Tecno Go 1",
+        "Tecno Go 2",
+        "Tecno Go 2025",
+        "Tecno KL4",
+
+        "Infinix Smart 9",
+        "Infinix Smart 10",
+        "Infinix Smart 10 Plus",
+        "Infinix Smart 10 HD",
+        "Infinix Hot 50 5G",
+        "Infinix Hot 50i",
+        "Infinix Hot 60",
+        "Infinix Hot 60i",
+        "Infinix Note 50X 5G",
+        "Infinix X6531",
+        "Infinix X6532",
+        "Infinix X6728",
+        "Infinix MT G56",
+        "Infinix Note 60i"
+    ]
+},
+
+
+
+/* ==================================================
+   21. VIVO Y27
+================================================== */
+
+{
+    glassModel: "Vivo Y27",
+    brand: "Vivo",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Vivo Y27",
+        "Vivo Y35+",
+        "Vivo Y36 India"
+    ]
+},
+
+
+
+/* ==================================================
+   22. VIVO Y19
+================================================== */
+
+{
+    glassModel: "Vivo Y19",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Redmi 9 Power",
+        "Redmi Note 9 4G",
+        "POCO M3",
+        "POCO M2",
+        "Realme 9T",
+        "Realme 9 Prime",
+        "Vivo Y19",
+        "Vivo U3",
+        "Vivo Y5S",
+        "Vivo U20"
+    ]
+},
+
+
+
+/* ==================================================
+   23. REALME NARZO N53
+================================================== */
+
+{
+    glassModel: "Realme Narzo N53",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Realme Narzo N53",
+        "Realme C51",
+        "Realme C53",
+        "Realme C53 India",
+        "Realme Note 50",
+        "Realme C63 4G",
+        "Realme Narzo N63",
+        "Realme C51S",
+        "Realme C61",
+        "Realme Note 60",
+        "Realme Narzo 80 Lite",
+        "Realme P4 Lite",
+
+        "Vivo Y04",
+        "Vivo Y29S",
+        "Vivo Y19E",
+        "Vivo Y19 5G",
+        "Vivo Y29T 5G",
+        "Vivo T4 Lite 5G",
+        "Vivo Y05",
+        "Vivo Y11",
+        "Vivo Y21",
+
+        "Tecno Spark Go 3"
+    ]
+},
+
+
+
+/* ==================================================
+   24. VIVO V70
+================================================== */
+
+{
+    glassModel: "Vivo V70",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Vivo V70",
+        "Vivo V70 Elite",
+        "iQOO 15R",
+        "iQOO Z1 Turbo",
+        "Vivo S50",
+        "Realme K90",
+        "POCO X8 Pro"
+    ]
+},
+
+
+
+/* ==================================================
+   25. ONEPLUS 13T
+================================================== */
+
+{
+    glassModel: "OnePlus 13T",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "OnePlus 13T",
+        "OnePlus 13S",
+        "Vivo X200 Pro Mini",
+        "Vivo X200 FE"
+    ]
+},
+
+
+
+/* ==================================================
+   26. SAMSUNG A10
+================================================== */
+
+{
+    glassModel: "Samsung A10",
+    brand: "Multi Brand",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Samsung A10",
+        "Samsung M10",
+        "Samsung M01S",
+        "Samsung A10S",
+
+        "Vivo Y90",
+        "Vivo Y91",
+        "Vivo Y91i India",
+        "Vivo Y91C 2020",
+        "Vivo Y93",
+        "Vivo Y93S",
+        "Vivo Y95",
+        "Vivo Y1S",
+        "Vivo Y97 China",
+        "Vivo U1 China",
+
+        "Oppo A5S",
+        "Oppo A7",
+        "Oppo A11K",
+        "Oppo A12",
+        "Oppo A12S",
+
+        "Realme 3",
+        "Realme 3i"
+    ]
+},
+
+
+
+/* ==================================================
+   27. REALME A6X
+================================================== */
+
+{
+    glassModel: "Realme A6X",
+    brand: "Realme",
+    glassType: "Universal Compatible Glass",
+
+    compatible: [
+
+        "Realme A6X",
+        "Realme 90X",
+        "Realme 15X"
+    ]
+},
+
+
+
+/* ==================================================
+   28. IPHONE 13
+================================================== */
+
+{
+    glassModel: "iPhone 13",
+    brand: "Apple",
+    glassType: "Full Screen",
+
+    compatible: [
+
+        "iPhone 13",
+        "iPhone 13 Pro",
+        "iPhone 14",
+        "iPhone 16e"
+    ]
+},
+
+
+
+/* ==================================================
+   29. IPHONE 16 PRO
+================================================== */
+
+{
+    glassModel: "iPhone 16 Pro",
+    brand: "Apple",
+    glassType: "Full Screen",
+
+    compatible: [
+
+        "iPhone 16 Pro",
+        "iPhone 17"
+    ]
+},
+
+
+
+/* ==================================================
+   30. IPHONE 15
+================================================== */
+
+{
+    glassModel: "iPhone 15",
+    brand: "Apple",
+    glassType: "Full Screen",
+
+    compatible: [
+
+        "iPhone 15",
+        "iPhone 16"
+    ]
+},
+
+
+
+/* ==================================================
+   31. IPHONE 12
+================================================== */
+
+{
+    glassModel: "iPhone 12",
+    brand: "Apple",
+    glassType: "Full Screen",
+
+    compatible: [
+
+        "iPhone 12",
+        "iPhone 12 Pro"
+    ]
+},
+
+
+
+/* ==================================================
+   32. IPHONE 12 MINI
+================================================== */
+
+{
+    glassModel: "iPhone 12 Mini",
+    brand: "Apple",
+    glassType: "Full Screen",
+
+    compatible: [
+
+        "iPhone 12 Mini"
+    ]
+},
+
+
+
+/* ==================================================
+   33. IPHONE X
+================================================== */
+
+{
+    glassModel: "iPhone X",
+    brand: "Apple",
+    glassType: "Full Screen",
+
+    compatible: [
+
+        "iPhone X",
+        "iPhone XS",
+        "iPhone 11 Pro"
+    ]
+},
+
+
+
+/* ==================================================
+   34. IPHONE XR
+================================================== */
+
+{
+    glassModel: "iPhone XR",
+    brand: "Apple",
+    glassType: "Full Screen",
+
+    compatible: [
+
+        "iPhone XR",
+        "iPhone 11"
+    ]
+},
+
+
+
+/* ==================================================
+   35. SAMSUNG A51
+================================================== */
+
+{
+    glassModel: "Samsung A51",
+    brand: "Samsung",
+    glassType: "Full Glue",
+
+    compatible: [
+
+        "Samsung A51",
+        "Samsung M31S",
+        "Samsung S20 FE",
+        "Samsung A52",
+        "Samsung A52S",
+        "Samsung A53"
+    ]
+}
+
+];
+
+
+
+/*
+==================================================
+GET BRAND FROM MODEL
+==================================================
+*/
+
+function getModelBrand(model) {
+
+    const name = model.toLowerCase().trim();
+
+    if (name.startsWith("iphone")) return "Apple";
+    if (name.startsWith("samsung")) return "Samsung";
+    if (name.startsWith("vivo")) return "Vivo";
+    if (name.startsWith("oppo")) return "Oppo";
+    if (name.startsWith("realme")) return "Realme";
+    if (name.startsWith("redmi")) return "Redmi";
+    if (name.startsWith("poco")) return "POCO";
+    if (name.startsWith("oneplus")) return "OnePlus";
+    if (name.startsWith("moto")) return "Motorola";
+    if (name.startsWith("iqoo")) return "iQOO";
+    if (name.startsWith("tecno")) return "Tecno";
+    if (name.startsWith("infinix")) return "Infinix";
+    if (name.startsWith("huawei")) return "Huawei";
+    if (name.startsWith("mi")) return "Xiaomi";
+
+    return "";
+}
+
+
+
+/*
+==================================================
+SEARCH GLASS
+==================================================
+*/
+
+function searchGlass() {
+
+    const searchText =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const selectedBrand =
+        document
+        .getElementById("brandFilter")
+        .value;
+
+
+    const selectedGlassType =
+        document
+        .getElementById("glassTypeFilter")
+        .value;
+
+
+    const results =
+        document.getElementById("results");
+
+
+    const resultCount =
+        document.getElementById("resultCount");
+
+
+    if (
+        searchText === "" &&
+        selectedBrand === "all" &&
+        selectedGlassType === "all"
+    ) {
+
+        resultCount.innerHTML =
+            "Search a mobile model";
+
+        results.innerHTML = "";
+
+        return;
+    }
+
+
+    const filtered =
+        glassDatabase.filter(item => {
+
+
+            const allModels =
+                [
+                    item.glassModel,
+                    ...item.compatible
+                ]
+                .join(" ")
+                .toLowerCase();
+
+
+            const matchesSearch =
+                searchText === "" ||
+                allModels.includes(searchText);
+
+
+            /*
+            BRAND FILTER
+
+            Multi Brand records ke andar
+            compatible model ka actual brand
+            check kiya jayega.
+            */
+
+            const modelBrands =
+                [
+                    item.glassModel,
+                    ...item.compatible
+                ]
+                .map(model => getModelBrand(model));
+
+
+            const matchesBrand =
+                selectedBrand === "all" ||
+                item.brand === selectedBrand ||
+                modelBrands.includes(selectedBrand);
+
+
+            const matchesGlassType =
+                selectedGlassType === "all" ||
+                item.glassType === selectedGlassType ||
+                item.glassType === "Universal Compatible Glass";
+
+
+            return (
+                matchesSearch &&
+                matchesBrand &&
+                matchesGlassType
+            );
+
+        });
+
+
+    resultCount.innerHTML =
+        `${filtered.length} compatible glass result(s) found`;
+
+
+    if (filtered.length === 0) {
+
+        results.innerHTML = `
+
+            <div class="no-result">
+
+                <h3>
+                    ❌ No Result Found
+                </h3>
+
+                <p>
+                    Is model ke liye database mein
+                    data available nahi hai.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    results.innerHTML =
+        filtered.map(item => {
+          const displayGlassType =
+              item.glassType === "Universal Compatible Glass" &&
+              selectedGlassType !== "all"
+                  ? selectedGlassType
+                  : item.glassType;
+
+            return `
+
+                <div class="card">
+
+                    <span class="brand">
+                        ${item.brand}
+                    </span>
+
+                    <h3>
+                        Glass: ${item.glassModel}
+                    </h3>
+
+                    <div class="glass-type">
+                        ${item.glassType}
+                    </div>
+
+                    ${
+                        item.size
+                        ? `
+                        <p>
+                            <b>Display:</b>
+                            ${item.size}
+                        </p>
+                        `
+                        : ""
+                    }
+
+                    <div class="compatible">
+
+                        Compatible Phones:
+
+                        <br><br>
+
+                        ${item.compatible
+                            .map(
+                                phone =>
+                                `📱 ${phone}`
+                            )
+                            .join("<br>")}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+
+/*
+==================================================
+SELECT GLASS TYPE
+==================================================
+*/
+
+function selectGlassType(type) {
+
+    document
+        .getElementById("glassTypeFilter")
+        .value = type;
+
+
+    searchGlass();
+
+
+    document
+        .getElementById("results")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+
+/*
+==================================================
+CLEAR SEARCH
+==================================================
+*/
+
+function clearSearch() {
+
+    document
+        .getElementById("searchInput")
+        .value = "";
+
+
+    document
+        .getElementById("brandFilter")
+        .value = "all";
+
+
+    document
+        .getElementById("glassTypeFilter")
+        .value = "all";
+
+
+    document
+        .getElementById("resultCount")
+        .innerHTML = "Search a mobile model";
+
+
+    document
+        .getElementById("results")
+        .innerHTML = "";
+
+}
+
+
+
+/*
+==================================================
+WHATSAPP REQUEST
+==================================================
+*/
+
+function sendWhatsAppRequest() {
+
+
+    const model =
+        document
+        .getElementById("requestModel")
+        .value
+        .trim();
+
+
+    if (model === "") {
+
+        alert(
+            "Please mobile model enter karein."
+        );
+
+        return;
+    }
+
+
+    const whatsappNumber =
+        "918087143887";
+
+
+    const message =
+`Hello CoverX 👋
+
+Mujhe tempered glass chahiye.
+
+📱 Mobile Model:
+${model}
+
+Please check karke bataye ki is model ka glass available hai ya nahi.
+
+Thank you.
+CoverX`;
+
+
+    const whatsappURL =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+
+/*
+==================================================
+LIVE SEARCH
+==================================================
+*/
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        searchGlass
+    );
+
+
+document
+    .getElementById("brandFilter")
+    .addEventListener(
+        "change",
+        searchGlass
+    );
+
+
+document
+    .getElementById("glassTypeFilter")
+    .addEventListener(
+        "change",
+        searchGlass
+    );
+
+
+</script>
+
+
+</body>
+</html>
